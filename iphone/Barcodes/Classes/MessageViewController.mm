@@ -12,8 +12,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 @implementation MessageViewController
-
-@synthesize contentURL;
 @synthesize webView;
 @synthesize postData;
 
@@ -35,7 +33,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSString *urlString = [NSString stringWithFormat:@"http://m1.ampthon.com/m1.php?tag_id=%@&os=%@&hardware=%@&loc=(%f,%f)&screen_size=(%dX%d)",self.postData.scanResult,self.postData.system,self.postData.model,self.postData.latitude,self.postData.longitude,(NSInteger)[UIScreen mainScreen].bounds.size.width,(NSInteger)[UIScreen mainScreen].bounds.size.height];
+    NSString *urlString = [NSString stringWithFormat:@"http://m1.ampthon.com/m1.php?tag_id=%@&os=%@ %@&hardware=%@&loc=(%f,%f)&screen_size=(%dX%d)",self.postData.scanResult,self.postData.system,self.postData.version,self.postData.model,self.postData.latitude,self.postData.longitude,(NSInteger)[UIScreen mainScreen].bounds.size.width,(NSInteger)[UIScreen mainScreen].bounds.size.height];
     
     NSLog(@"%@",urlString);
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -54,7 +52,6 @@
 }
 
 - (void)dealloc {
-    [contentURL release];
     [webView release];
     [postData release];
     [_resultLabel release];
@@ -70,7 +67,7 @@
     [readers release];
     widController.soundToPlay =
     [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"beep-beep" ofType:@"aiff"]];
-    [self presentModalViewController:widController animated:NO];
+    [self presentModalViewController:widController animated:YES];
     [widController release];
     
 }
@@ -98,6 +95,6 @@
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller
 {
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end

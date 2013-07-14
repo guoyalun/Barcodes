@@ -49,47 +49,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.overlayView = [[[OverlayView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    self.view.backgroundColor = [UIColor blackColor];
+    self.overlayView = [[[OverlayView alloc] initWithFrame:self.view.bounds] autorelease];
+    self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.overlayView.delegate = self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.wantsFullScreenLayout = YES;
-    if ([self soundToPlay] != nil) {
-        OSStatus error = AudioServicesCreateSystemSoundID((CFURLRef)[self soundToPlay], &beepSound);
-        if (error != kAudioServicesNoError) {
-            NSLog(@"Problem loading nearSound.caf");
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([self soundToPlay] != nil) {
+            OSStatus error = AudioServicesCreateSystemSoundID((CFURLRef)[self soundToPlay], &beepSound);
+            if (error != kAudioServicesNoError) {
+                NSLog(@"Problem loading nearSound.caf");
+            }
         }
-    }
+    });
+    [self initCapture];
+    [self.view addSubview:overlayView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
     decoding = YES;
-    
-    [self initCapture];
-    [self.view addSubview:overlayView];
     [overlayView startAnimate];
     [overlayView setPoints:nil];
-    
-    
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self.overlayView removeFromSuperview];
     [self stopCapture];
 }
 
-
-
 - (void)dealloc {
     if (beepSound != (SystemSoundID)-1) {
-    AudioServicesDisposeSystemSoundID(beepSound);
+        AudioServicesDisposeSystemSoundID(beepSound);
     }
 
     [self stopCapture];
@@ -297,33 +292,39 @@
 {
 #if HAS_AVFF
       AVCaptureDevice* inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if ([inputDevice hasFlash]&&[inputDevice isFlashModeSupported:AVCaptureFlashModeAuto]) {
-        [inputDevice lockForConfiguration:nil];
-        inputDevice.flashMode = AVCaptureFlashModeAuto;
-        [inputDevice unlockForConfiguration];
-    }
-    
-    if ([inputDevice hasTorch]&&[inputDevice isTorchModeSupported:AVCaptureTorchModeAuto]) {
-        [inputDevice lockForConfiguration:nil];
-//        [inputDevice setTorchModeOnWithLevel:0.5 error:nil];
-        inputDevice.torchMode = AVCaptureTorchModeAuto;
-
-        if ([inputDevice isLowLightBoostSupported]) {
-            [inputDevice setAutomaticallyEnablesLowLightBoostWhenAvailable:YES];
-        }
-        [inputDevice unlockForConfiguration];
-    }
-    if ([inputDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-        [inputDevice lockForConfiguration:nil];
-        inputDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
-        [inputDevice unlockForConfiguration];
-    }
-    
-    if ([inputDevice isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeAutoWhiteBalance]) {
-        [inputDevice lockForConfiguration:nil];
-        inputDevice.whiteBalanceMode = AVCaptureWhiteBalanceModeAutoWhiteBalance;
-        [inputDevice unlockForConfiguration];
-    }
+//    if ([inputDevice hasFlash]&&[inputDevice isFlashModeSupported:AVCaptureFlashModeAuto]) {
+//        [inputDevice lockForConfiguration:nil];
+//        inputDevice.flashMode = AVCaptureFlashModeAuto;
+//        [inputDevice unlockForConfiguration];
+//    }
+//    
+//    if ([inputDevice hasTorch]&&[inputDevice isTorchModeSupported:AVCaptureTorchModeAuto]) {
+//        [inputDevice lockForConfiguration:nil];
+//        inputDevice.torchMode = AVCaptureTorchModeAuto;
+//
+//        if ([inputDevice isLowLightBoostSupported]) {
+//            [inputDevice setAutomaticallyEnablesLowLightBoostWhenAvailable:YES];
+//        }
+//        [inputDevice unlockForConfiguration];
+//    }
+//    if ([inputDevice isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+//        [inputDevice lockForConfiguration:nil];
+//        inputDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+//        [inputDevice unlockForConfiguration];
+//    }
+//    
+//    if ([inputDevice isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeAutoWhiteBalance]) {
+//        [inputDevice lockForConfiguration:nil];
+//        inputDevice.whiteBalanceMode = AVCaptureWhiteBalanceModeAutoWhiteBalance;
+//        [inputDevice unlockForConfiguration];
+//    }
+//    
+//    if ([inputDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+//        [inputDevice lockForConfiguration:nil];
+//        inputDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+//        [inputDevice unlockForConfiguration];
+//
+//    }
     
     
       AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:nil];

@@ -13,14 +13,11 @@
 
 @interface MessageViewController : UIViewController <UIWebViewDelegate,ZXingDelegate>
 {
-      NSURL *contentURL;
-      UIWebView *webView;
       NSPostData *postData;
 }
 
-@property (retain, nonatomic) IBOutlet UILabel *resultLabel;
+@property (nonatomic,retain) IBOutlet UILabel *resultLabel;
 @property (nonatomic,retain) IBOutlet UIWebView *webView;
-@property (nonatomic,retain) NSURL *contentURL;
 @property (nonatomic,retain) NSPostData *postData;
 
 - (IBAction)reScan:(id)sender;

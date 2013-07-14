@@ -38,7 +38,7 @@
     MultiFormatReader* qrcodeReader = [[[MultiFormatReader alloc] init] autorelease];
     zxingController.readers = [[[NSSet alloc] initWithObjects:qrcodeReader, nil] autorelease];
     zxingController.soundToPlay = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"beep-beep" ofType:@"aiff"]];
-    [self presentModalViewController:zxingController animated:NO];
+    [self presentModalViewController:zxingController animated:YES];
     [zxingController release];
 }
 
@@ -49,7 +49,7 @@
     
     NSLog(@"result = %@",resultString);
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissModalViewControllerAnimated:YES];
 
     NSPostData *postData = [[NSPostData alloc] init];
     postData.scanResult = resultString;
@@ -70,7 +70,7 @@
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller
 {
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
