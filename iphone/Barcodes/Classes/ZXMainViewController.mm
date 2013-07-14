@@ -9,7 +9,6 @@
 #import "ZXMainViewController.h"
 #import <MultiFormatReader.h>
 #import "MessageViewController.h"
-#import "IPAddress.h"
 #import "NSPostData.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -59,8 +58,6 @@
     postData.model = [UIDevice currentDevice].model;
     postData.system = [UIDevice currentDevice].systemName;
     postData.version = [UIDevice currentDevice].systemVersion;
-    postData.current = [NSDate date];
-    postData.ipAddress = [IPAddress getIPAddress];
     postData.latitude =  [[NSUserDefaults standardUserDefaults] doubleForKey:@"latitude"];
     postData.longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:@"longitude"];
     

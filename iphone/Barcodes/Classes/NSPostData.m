@@ -13,8 +13,6 @@
 @synthesize model;
 @synthesize system;
 @synthesize version;
-@synthesize ipAddress;
-@synthesize current;
 @synthesize latitude;
 @synthesize  longitude;
 
@@ -24,8 +22,6 @@
     [model      release]; model      = nil;
     [system     release]; system     = nil;
     [version    release]; version    = nil;
-    [ipAddress  release]; ipAddress  = nil;
-    [current    release]; current    = nil;
     [super dealloc];
 }
 

@@ -16,8 +16,6 @@
     NSString *model;
     NSString *system;
     NSString *version;
-    NSString *ipAddress;
-    NSDate   *current;
     CLLocationDegrees latitude;
     CLLocationDegrees longitude;
 }
@@ -25,8 +23,6 @@
 @property (nonatomic,retain) NSString *model;
 @property (nonatomic,retain) NSString *system;
 @property (nonatomic,retain) NSString *version;
-@property (nonatomic,retain) NSString *ipAddress;
-@property (nonatomic,retain) NSDate   *current;
 @property (nonatomic,assign) CLLocationDegrees latitude;
 @property (nonatomic,assign) CLLocationDegrees longitude;
 

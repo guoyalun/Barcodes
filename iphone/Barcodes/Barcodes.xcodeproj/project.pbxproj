@@ -32,7 +32,6 @@
 		1FF80D1012A3AE5400FE297C /* ZXMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF80D0F12A3AE5400FE297C /* ZXMainViewController.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		CB08CD2F16B7C68000788447 /* NSPostData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB08CD2E16B7C68000788447 /* NSPostData.m */; };
-		CB4E5F1A1778A493006D9FF4 /* IPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4E5F191778A493006D9FF4 /* IPAddress.m */; };
 		CB4E5F1C1778A64A006D9FF4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4E5F1B1778A649006D9FF4 /* CoreLocation.framework */; };
 		CBFB20FF177882CA006CFA73 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBFB20FE177882CA006CFA73 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -95,8 +94,6 @@
 		8D1107310486CEB800E47090 /* Barcodes-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Barcodes-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		CB08CD2D16B7C68000788447 /* NSPostData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPostData.h; sourceTree = "<group>"; };
 		CB08CD2E16B7C68000788447 /* NSPostData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPostData.m; sourceTree = "<group>"; };
-		CB4E5F181778A493006D9FF4 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAddress.h; sourceTree = "<group>"; };
-		CB4E5F191778A493006D9FF4 /* IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPAddress.m; sourceTree = "<group>"; };
 		CB4E5F1B1778A649006D9FF4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CBFB20FE177882CA006CFA73 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,8 +130,6 @@
 				1D3623250D0F684500981E51 /* BarcodesAppDelegate.m */,
 				1FB430341290002C002D63E8 /* ZXMainViewController.h */,
 				1FB430351290002C002D63E8 /* ZXMainViewController.mm */,
-				CB4E5F181778A493006D9FF4 /* IPAddress.h */,
-				CB4E5F191778A493006D9FF4 /* IPAddress.m */,
 				CB08CD2D16B7C68000788447 /* NSPostData.h */,
 				CB08CD2E16B7C68000788447 /* NSPostData.m */,
 			);
@@ -329,7 +324,6 @@
 				1D3623260D0F684500981E51 /* BarcodesAppDelegate.m in Sources */,
 				1FB430371290002C002D63E8 /* ZXMainViewController.mm in Sources */,
 				1FB4352E12904F56002D63E8 /* MessageViewController.mm in Sources */,
-				CB4E5F1A1778A493006D9FF4 /* IPAddress.m in Sources */,
 				CB08CD2F16B7C68000788447 /* NSPostData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
