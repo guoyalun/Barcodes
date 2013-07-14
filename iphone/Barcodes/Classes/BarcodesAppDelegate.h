@@ -10,7 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ZXMainViewController.h"
 
-@interface BarcodesAppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate> {
+@interface BarcodesAppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
+{
     UIWindow *window;
     ZXMainViewController *viewController;
     

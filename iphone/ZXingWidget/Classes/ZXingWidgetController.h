@@ -4,6 +4,10 @@
 #include "Decoder.h"
 #include "parsedResults/ParsedResult.h"
 #include "OverlayView.h"
+typedef enum {
+    QRCode,
+    BarCode
+}CodeType;
 
 @protocol ZXingDelegate;
 
@@ -17,7 +21,8 @@
 #if HAS_AVFF
                                                     , AVCaptureVideoDataOutputSampleBufferDelegate
 #endif
-                                                    > {
+                                                    >
+{
       NSSet *readers;
       ParsedResult *result;
       OverlayView *overlayView;
@@ -25,11 +30,14 @@
       BOOL showCancel;
       NSURL *soundToPlay;
       id<ZXingDelegate> delegate;
-    #if HAS_AVFF
+      CodeType codeType;
+      BOOL decoding;
+
+#if HAS_AVFF
       AVCaptureSession *captureSession;
       AVCaptureVideoPreviewLayer *prevLayer;
-    #endif
-      BOOL decoding;
+#endif
+
 }
 
 #if HAS_AVFF
@@ -41,6 +49,7 @@
 @property (nonatomic, retain) NSURL *soundToPlay;
 @property (nonatomic, retain) ParsedResult *result;
 @property (nonatomic, retain) OverlayView *overlayView;
+@property (nonatomic, assign)  CodeType codeType;
 
 - (id)initWithDelegate:(id<ZXingDelegate>)delegate;
 

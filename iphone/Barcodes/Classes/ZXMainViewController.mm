@@ -13,7 +13,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 @implementation ZXMainViewController
-@synthesize receiveData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,22 +25,21 @@
       
 - (IBAction)scan:(id)sender
 {
-      ZXingWidgetController *widController = [[ZXingWidgetController alloc] initWithDelegate:self];
-      MultiFormatReader* qrcodeReader = [[MultiFormatReader alloc] init];
-      NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];
-      [qrcodeReader release];
-      widController.readers = readers;
-      [readers release];
-      widController.soundToPlay =
-      [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"beep-beep" ofType:@"aiff"]];
-      [self presentModalViewController:widController animated:NO];
-      [widController release];
-}
-
-- (void)dealloc
-{
-    [receiveData release];
-    [super dealloc];
+    CodeType type = QRCode;
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *btn = (UIButton *)sender;
+        if (btn.tag == 100) {
+            type = BarCode;
+        }
+    }
+    
+    ZXingWidgetController *zxingController = [[ZXingWidgetController alloc] initWithDelegate:self];
+    zxingController.codeType = type;
+    MultiFormatReader* qrcodeReader = [[[MultiFormatReader alloc] init] autorelease];
+    zxingController.readers = [[[NSSet alloc] initWithObjects:qrcodeReader, nil] autorelease];
+    zxingController.soundToPlay = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"beep-beep" ofType:@"aiff"]];
+    [self presentModalViewController:zxingController animated:NO];
+    [zxingController release];
 }
 
 #pragma mark -

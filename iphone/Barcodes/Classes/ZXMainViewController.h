@@ -10,12 +10,5 @@
 #import "ZXingWidgetController.h"
 
 @interface ZXMainViewController : UIViewController <ZXingDelegate>
-{
-    NSMutableData *receiveData;
-}
-
-@property (nonatomic,retain) NSMutableData *receiveData;
-
 - (IBAction)scan:(id)sender;
-
 @end
