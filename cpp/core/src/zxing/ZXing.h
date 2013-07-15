@@ -27,7 +27,7 @@
          (-1))))))
 
 #ifndef ZXING_DEBUG
-#define ZXING_DEBUG 0
+#define ZXING_DEBUG 1
 #endif
 
 namespace zxing {

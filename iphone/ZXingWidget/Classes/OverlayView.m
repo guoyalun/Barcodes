@@ -30,6 +30,7 @@ static const CGFloat kPadding = 10;
 @synthesize cropRect;
 @synthesize cropView;
 @synthesize displayedMessage;
+@synthesize imageView;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -62,7 +63,15 @@ static const CGFloat kPadding = 10;
         _indicatorView.hidden = YES;
         [self addSubview:_indicatorView];
         
+        imageView = [[UIImageView alloc] initWithFrame:cropRect];
+        imageView.hidden = YES;
+        [self addSubview:imageView];
+        
+        animating = NO;
         self.displayedMessage = @"扫描中...";
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        
     }
     return self;
 }
@@ -106,6 +115,7 @@ static const CGFloat kPadding = 10;
 
 - (void)startAnimate
 {
+    animating = YES;
     _indicatorView.yOrigin = CGRectGetMinY(cropRect);
     _indicatorView.hidden = NO;
     [UIView beginAnimations:@"123" context:nil];
@@ -115,6 +125,7 @@ static const CGFloat kPadding = 10;
     _indicatorView.yOrigin =  CGRectGetMaxY(cropRect);
     [UIView commitAnimations];
     
+    self.cropView.alpha = 1;
     [UIView beginAnimations:@"456" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationRepeatAutoreverses:YES];
@@ -127,19 +138,33 @@ static const CGFloat kPadding = 10;
 
 - (void)stopAnimate
 {
+    animating = NO;
     _indicatorView.hidden = YES;
     self.cropView.layer.borderColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1].CGColor;
 
     
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    if (animating) {
+        [self startAnimate];
+    } else {
+        [self stopAnimate];
+    }
+    [lightButton setTitle:@"开灯" forState:UIControlStateNormal];
+    
+}
+
 - (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_points release];
     [displayedMessage release];
     [cancelButton release];
     [lightButton release];
     [_indicatorView release];
     [cropView release];
+    [imageView release];
     [super dealloc];
 }
 
@@ -161,11 +186,29 @@ static const CGFloat kPadding = 10;
     center.y = cropRect.size.height/2;
     float x = point.x - center.x;
     float y = point.y - center.y;
-    point.x = -y;
-    point.y = x;
-    point.x = point.x + center.x;
-    point.y = point.y + center.y;
+    int rotation = 90;
+    switch(rotation) {
+        case 0:
+            point.x = x;
+            point.y = y;
+            break;
+        case 90:
+            point.x = -y;
+            point.y = x;
+            break;
+        case 180:
+            point.x = -x;
+            point.y = -y;
+            break;
+        case 270:
+            point.x = y;
+            point.y = -x;
+            break;
+    }
+    point.x = point.x + center.x + kPadding*3;
+    point.y = point.y + center.y - CGRectGetMinY(cropRect);
     return point;
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////

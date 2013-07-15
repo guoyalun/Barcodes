@@ -70,6 +70,7 @@
     [super viewDidAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     decoding = YES;
+    overlayView.imageView.hidden = YES;
     [overlayView startAnimate];
     [overlayView setPoints:nil];
 }
@@ -246,12 +247,18 @@
 {
     // simply add the points to the image view
     NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:resultPoints];
-    [overlayView setPoints:mutableArray];
+    NSLog(@"points %@",mutableArray);
+    if (mutableArray.count >= 3) {
+        [overlayView setPoints:mutableArray];
+    }
     [mutableArray release];
 }
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult
 {
+    
+//    overlayView.imageView.image = subset;
+//    overlayView.imageView.hidden = NO;
     [overlayView stopAnimate];
     [overlayView.layer displayIfNeeded];
 
