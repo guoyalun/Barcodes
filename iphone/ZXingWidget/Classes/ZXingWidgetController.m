@@ -256,11 +256,20 @@
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult
 {
-    
+#if HAS_AVFF
+    [captureSession stopRunning];
+#endif
+
 //    overlayView.imageView.image = subset;
+////    [UIImage imageWithCGImage:[self CGImageRotated90:image.CGImage]];
+//    if (image.imageOrientation == UIImageOrientationUp) {
+//        overlayView.imageView.transform= CGAffineTransformMakeRotation(M_PI_2);
+//    }
+//    overlayView.imageView.alpha = 0.6;
 //    overlayView.imageView.hidden = NO;
     [overlayView stopAnimate];
     [overlayView.layer displayIfNeeded];
+    
 
     [self presentResultForString:[twoDResult text]];
     [self presentResultPoints:[twoDResult points] forImage:image usingSubset:subset];
@@ -403,7 +412,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
       CGContextRelease(newContext); 
       CGColorSpaceRelease(colorSpace);
 
-      if (0) {
+      if (1) {
           CGRect cropRect = [overlayView cropRect];
 
           float height = CGImageGetHeight(capture);

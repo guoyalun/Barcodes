@@ -65,6 +65,7 @@ static const CGFloat kPadding = 10;
         
         imageView = [[UIImageView alloc] initWithFrame:cropRect];
         imageView.hidden = YES;
+        imageView.clipsToBounds = YES;
         [self addSubview:imageView];
         
         animating = NO;
